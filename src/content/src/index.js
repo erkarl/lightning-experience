@@ -51,7 +51,6 @@ const initWidget = () => {
   rootLE.id = guid();
   const invoiceCode = document.getElementById('invoice-code')
   const rect = invoiceCode.getBoundingClientRect();
-  console.log(rect.top, rect.right, rect.bottom, rect.left);
   rootLE.style.position = 'absolute';
   rootLE.style.top = `${rect.top}px`;
   const WIDGET_MARGIN = 80;

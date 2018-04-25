@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
   App,
   OpenInvoice,
-  // LightningIcon,
 } from './styles';
-// import icon from './icon.svg';
 
 class AppComponent extends Component {
 
@@ -17,13 +15,10 @@ class AppComponent extends Component {
   }
 
   render() {
-    // console.log('FU', icon);
-    console.log('rerender', this.props);
     return (
       <App>
         {!this.state.openInvoice && !this.state.paid &&
           <button onClick={() => {
-            console.log('onClick');
             this.setState({...this.state, openInvoice: true})
           }}>
             Pay with LE
