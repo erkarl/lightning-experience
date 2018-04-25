@@ -4,7 +4,6 @@ const payInvoice = (invoiceCode) => {
   const body = {
     "dest_string": "03b1e8cae2c4156cd94311be762dcaf62d5afd2e4b49162721c9e79bca33c76d0d",
     "payment_request": invoiceCode
-    // "payment_request": "lntb1500n1pddck5tpp54ecxycjhd3qad296qsmkers43wsyvt2dsv59w3xgca0swsa3lajsdqqcqzysrnydpct6uym9ydmnt2gm2ct33u7spf2q09z3axfm623cfl22zgp30vwadge2pgnfql74x7s4vx5tysft9aga7qya9nc4n8gklcjrcusqjdstze"
   };
   return fetch('https://localhost:8081/v1/channels/transactions', {
     method: 'POST',
@@ -24,21 +23,6 @@ const payInvoice = (invoiceCode) => {
     });
 };
 
-chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({color: '#3aa757'}, function() {
-    console.log("The color is green.");
-  });
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-    chrome.declarativeContent.onPageChanged.addRules([{
-      conditions: [new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: {hostEquals: 'localhost'},
-      })
-      ],
-          actions: [new chrome.declarativeContent.ShowPageAction()]
-    }]);
-  });
-});
-
 console.log('Adding external message listener...');
 chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.type === 'pay_invoice') {
@@ -51,9 +35,6 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
         });
     }
     if (request.type == "notification") {
-      console.log('blabla notifications.create.request', request);
-      console.log('blabla notifications.create.sender', sender);
-      console.log('invoice code is', request.options.invoiceCode);
       // TODO: Actually decode the invoice.
       const decodedInvoice = {
         description: 'Payment description.',
