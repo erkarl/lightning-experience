@@ -1,11 +1,14 @@
 console.log('Starting background bundle');
 
+const LND_RESTLISTEN = 'https://localhost:8081';
+const TRANSACTIONS_ENDPOINT = '/v1/channels/transactions';
+
 const payInvoice = (invoiceCode) => {
   const body = {
     "dest_string": "03b1e8cae2c4156cd94311be762dcaf62d5afd2e4b49162721c9e79bca33c76d0d",
     "payment_request": invoiceCode
   };
-  return fetch('https://localhost:8081/v1/channels/transactions', {
+  return fetch(`${LND_RESTLISTEN}${TRANSACTIONS_ENDPOINT}`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -30,7 +33,7 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
         .then((lndResponse) => {
           console.log('lndResponse is', lndResponse);
         }).then(() => {
-          // TODO: This assumes invoice always gets paid and there are no routing errors :D.
+          // TODO: This assumes invoice always gets paid and that nothing can wrong :P.
           console.log('Invoice has been paid.');
         });
     }
@@ -46,7 +49,7 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
           chrome.tabs.sendMessage(tabs[0].id, {
             action: "confirm_decoded_invoice",
             decodedInvoice,
-          }, function(response) {});
+          }, (response) => {});
         }
       });
     }
