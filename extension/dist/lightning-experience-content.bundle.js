@@ -517,7 +517,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"matchesInvoiceCode\", function() { return matchesInvoiceCode; });\nvar matchesInvoiceCode = function matchesInvoiceCode(possibleCode) {\n  console.log('possibleCode', possibleCode);\n  // debugger\n  return false;\n};\n\n//# sourceURL=webpack:///./src/invoice-detector/invoice-matcher.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"matchesInvoiceCode\", function() { return matchesInvoiceCode; });\nvar matchesInvoiceCode = function matchesInvoiceCode(possibleCode) {\n  console.log('possibleCode', possibleCode);\n  return possibleCode.includes('lntb') || possibleCode.includes('lnbc');\n};\n\n//# sourceURL=webpack:///./src/invoice-detector/invoice-matcher.js?");
 
 /***/ })
 
