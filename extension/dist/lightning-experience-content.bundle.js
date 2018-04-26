@@ -517,7 +517,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cleanInvoice\", function() { return cleanInvoice; });\nvar cleanInvoice = function cleanInvoice(dirtyInvoice) {\n  console.log('dirtyInvoice', dirtyInvoice);\n  return dirtyInvoice;\n};\n\n//# sourceURL=webpack:///./src/invoice-detector/invoice-cleaner.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cleanInvoice\", function() { return cleanInvoice; });\nvar LIGHTNING_INVOICE_LENGTH = 188;\n\nvar cleanInvoice = function cleanInvoice(dirtyInvoice) {\n  var invoiceStartIndex = dirtyInvoice.indexOf('lntb');\n  var invoiceCode = dirtyInvoice.slice(invoiceStartIndex, invoiceStartIndex + LIGHTNING_INVOICE_LENGTH);\n  if (invoiceCode.length === 188) {\n    return invoiceCode;\n  }\n  // TODO: Quickly fall back to mainnet in order to get the PoC ready.\n\n  var mainnetInvoiceStartIndex = dirtyInvoice.indexOf('lnbc');\n  var mainnetInvoiceCode = dirtyInvoice.slice(mainnetInvoiceStartIndex, mainnetInvoiceStartIndex + LIGHTNING_INVOICE_LENGTH);\n\n  return mainnetInvoiceCode;\n};\n\n//# sourceURL=webpack:///./src/invoice-detector/invoice-cleaner.js?");
 
 /***/ }),
 
