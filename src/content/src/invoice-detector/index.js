@@ -1,4 +1,5 @@
 import { matchesInvoiceCode } from './invoice-matcher';
+import { cleanInvoice } from './invoice-cleaner';
 const TARGET_ELEMENT = document.body;
 const MUTATION_OBSERVER_CONFIG = {
   characterData: false,
@@ -15,7 +16,8 @@ const domMutationDetected = (mutationsList) => {
         && mutation.target
         && mutation.target.textContent
         && matchesInvoiceCode(mutation.target.textContent);
-    });
+    })
+    .map(cleanInvoice);
   console.log('invoices', invoices.length);
 };
 

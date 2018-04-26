@@ -1,18 +1,8 @@
-import {matchesInvoiceCode} from '../src/invoice-detector/invoice-matcher';
-
-test('returns false for "Generating Invoice"', () => {
-  const matches = matchesInvoiceCode("Generating Invoice");
-  expect(matches).toEqual(false);
-});
+import {cleanInvoice} from '../src/invoice-detector/invoice-cleaner';
 
 test('returns true for testnet invoice code', () => {
-  const validInvoiceCode = "lntb10n1pdwrejspp578k5hz6fzdgg5n7uvyfst6amsa8p9x4pmyp8xq0krdnlyvkgsz4qdqqcqzys4z8sjnln7h83rxjjj6zsaqhq8kyn8f9mkxadtwnf5m9ven0uput5tynhjh7eu8ree58qxs440t370930sjfwe0wusgaz9tsnw6qfw7spgdrsf0"
-  const matches = matchesInvoiceCode(validInvoiceCode);
-  expect(matches).toEqual(true);
-});
-
-test('returns true for mainnet invoice code', () => {
-  const validInvoiceCode = "lnbc10n1pdwrmnapp5qmg7yc7ms8jl56yee6a6kd469av0larw4s63kl4umq0pq908nqjqdqqcqzysx0qjs7lhvxe8nxtyhvj6ywf45jx47vx79y5cykvyv06rtv4hphqzzug75ajqj4kkghzruvamc3dr0fr8y3zxjm36en9knm6zyxs9xwsqk2slq2"
-  const matches = matchesInvoiceCode(validInvoiceCode);
-  expect(matches).toEqual(true);
+  const dirtyInvoice = "lntb10n1pdwrejspp578k5hz6fzdgg5n7uvyfst6amsa8p9x4pmyp8xq0krdnlyvkgsz4qdqqcqzys4z8sjnln7h83rxjjj6zsaqhq8kyn8f9mkxadtwnf5m9ven0uput5tynhjh7eu8ree58qxs440t370930sjfwe0wusgaz9tsnw6qfw7spgdrsf0"
+  const cleanedInvoice = cleanInvoice(dirtyInvoice);
+  const expectedInvoice = 'lntb10n1pdwrm54pp50gndftg433kafrtmfvsvltfmhyxpq2k2zvrtz0gcc8cfmg6gh34qdqqcqzyspkuxsjh5yrwkqzjnu485p4vcp0x0waemk7rglyjx8fp9vwf05ew8wj0c2addumurpdlp6qwu942e9r8ykr5xjjppd2q83lk4xfkef6gpaz52k2';
+  expect(cleanedInvoice).toEqual(expectedInvoice);
 });

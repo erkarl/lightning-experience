@@ -505,7 +505,19 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"searchForInvoices\", function() { return searchForInvoices; });\n/* harmony import */ var _invoice_matcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./invoice-matcher */ \"./src/invoice-detector/invoice-matcher.js\");\n\nvar TARGET_ELEMENT = document.body;\nvar MUTATION_OBSERVER_CONFIG = {\n  characterData: false,\n  attributes: false,\n  childList: true,\n  subtree: true\n};\n\nvar domMutationDetected = function domMutationDetected(mutationsList) {\n  console.log('domMutationDetected', mutationsList);\n  var invoices = mutationsList.filter(function (mutation) {\n    return mutation && mutation.target && mutation.target.textContent && Object(_invoice_matcher__WEBPACK_IMPORTED_MODULE_0__[\"matchesInvoiceCode\"])(mutation.target.textContent);\n  });\n  console.log('invoices', invoices.length);\n};\n\nvar searchForInvoices = function searchForInvoices(_ref) {\n  var invoiceFound = _ref.invoiceFound;\n\n  console.log('searchForInvoices', TARGET_ELEMENT);\n  var mutationObserver = new MutationObserver(domMutationDetected);\n  mutationObserver.observe(TARGET_ELEMENT, MUTATION_OBSERVER_CONFIG);\n  return mutationObserver;\n};\n\n//# sourceURL=webpack:///./src/invoice-detector/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"searchForInvoices\", function() { return searchForInvoices; });\n/* harmony import */ var _invoice_matcher__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./invoice-matcher */ \"./src/invoice-detector/invoice-matcher.js\");\n/* harmony import */ var _invoice_cleaner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./invoice-cleaner */ \"./src/invoice-detector/invoice-cleaner.js\");\n\n\nvar TARGET_ELEMENT = document.body;\nvar MUTATION_OBSERVER_CONFIG = {\n  characterData: false,\n  attributes: false,\n  childList: true,\n  subtree: true\n};\n\nvar domMutationDetected = function domMutationDetected(mutationsList) {\n  console.log('domMutationDetected', mutationsList);\n  var invoices = mutationsList.filter(function (mutation) {\n    return mutation && mutation.target && mutation.target.textContent && Object(_invoice_matcher__WEBPACK_IMPORTED_MODULE_0__[\"matchesInvoiceCode\"])(mutation.target.textContent);\n  }).map(_invoice_cleaner__WEBPACK_IMPORTED_MODULE_1__[\"cleanInvoice\"]);\n  console.log('invoices', invoices.length);\n};\n\nvar searchForInvoices = function searchForInvoices(_ref) {\n  var invoiceFound = _ref.invoiceFound;\n\n  console.log('searchForInvoices', TARGET_ELEMENT);\n  var mutationObserver = new MutationObserver(domMutationDetected);\n  mutationObserver.observe(TARGET_ELEMENT, MUTATION_OBSERVER_CONFIG);\n  return mutationObserver;\n};\n\n//# sourceURL=webpack:///./src/invoice-detector/index.js?");
+
+/***/ }),
+
+/***/ "./src/invoice-detector/invoice-cleaner.js":
+/*!*************************************************!*\
+  !*** ./src/invoice-detector/invoice-cleaner.js ***!
+  \*************************************************/
+/*! exports provided: cleanInvoice */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cleanInvoice\", function() { return cleanInvoice; });\nvar cleanInvoice = function cleanInvoice(dirtyInvoice) {\n  console.log('dirtyInvoice', dirtyInvoice);\n  return dirtyInvoice;\n};\n\n//# sourceURL=webpack:///./src/invoice-detector/invoice-cleaner.js?");
 
 /***/ }),
 
@@ -517,7 +529,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"matchesInvoiceCode\", function() { return matchesInvoiceCode; });\nvar matchesInvoiceCode = function matchesInvoiceCode(possibleCode) {\n  console.log('possibleCode', possibleCode);\n  return possibleCode.includes('lntb') || possibleCode.includes('lnbc');\n};\n\n//# sourceURL=webpack:///./src/invoice-detector/invoice-matcher.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"matchesInvoiceCode\", function() { return matchesInvoiceCode; });\nvar matchesInvoiceCode = function matchesInvoiceCode(possibleCode) {\n  return possibleCode.includes('lntb') || possibleCode.includes('lnbc');\n};\n\n//# sourceURL=webpack:///./src/invoice-detector/invoice-matcher.js?");
 
 /***/ })
 
