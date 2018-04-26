@@ -1,4 +1,4 @@
-import {cleanInvoice} from '../src/invoice-detector/invoice-cleaner';
+import {cleanInvoice} from '../src/invoice/cleaner';
 
 test('returns true for testnet invoice code', () => {
   const dirtyInvoice = "possibleCode Here is your invoicelntb10n1pdwruxupp5wtvhnve4yewz5a62r4e08kllc8m06qrk8tzzfmwk94gxfrc0v8tsdqqcqzysekkrq9uk2xcrxt78aweu2dkvqzcrf9gxs60dfuyuw7vg7ncu04rqmnam9u5g3jvmxfa900d8x2rc04w2scd2rc0smdg96u63ftnfe8qpuvgezq"

@@ -1,4 +1,4 @@
-import {matchesInvoiceCode} from '../src/invoice-detector/invoice-matcher';
+import {matchesInvoiceCode} from '../src/invoice/matcher';
 
 test('returns false for "Generating Invoice"', () => {
   const matches = matchesInvoiceCode("Generating Invoice");

@@ -1,47 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import {searchForInvoices} from './invoice-detector/index';
-
-// const ONE_SECOND_IN_MS = 1000;
+import {searchForInvoices} from './invoice/detector';
 
 console.log('Lightning Experience content script has been activated.');
 
-const invoiceValid = (invoiceCode) => {
-  // TODO: Actually validate the input.
-  return invoiceCode;
-};
-
 const invoiceFound = (invoiceCode) => {
-  if (invoiceValid(invoiceCode)) {
-    chrome.storage.sync.get('currentInvoice', (data) => {
-      const shouldOverrideOldInvoice = invoiceCode !== data.currentInvoice;
-      if (shouldOverrideOldInvoice) {
-        console.log('Found invoice. Decoding...', invoiceCode);
+  console.log('invoiceFound', invoiceCode);
+  chrome.storage.sync.get('currentInvoice', (data) => {
+    const shouldOverrideOldInvoice = invoiceCode !== data.currentInvoice;
+    if (shouldOverrideOldInvoice) {
+      console.log('Found invoice. Decoding...', invoiceCode);
 
-        chrome.storage.sync.set({currentInvoice: invoiceCode}, () => {
-          console.log("Current invoice has been changed.");
-        });
+      chrome.storage.sync.set({currentInvoice: invoiceCode}, () => {
+        console.log("Current invoice has been changed.");
+      });
 
-        chrome.runtime.sendMessage({type: "notification", options: {invoiceCode}});
-      }
+      chrome.runtime.sendMessage({type: "notification", options: {invoiceCode}});
+    }
 
-    });
-  }
+  });
 };
 
 searchForInvoices({invoiceFound});
-
-/* Disable primitive invoiceCode search
-setInterval(() => {
-  const invoiceCodeElement = document.getElementById('invoice-code');
-
-  if (invoiceCodeElement) {
-    const invoiceCode = invoiceCodeElement.dataset['invoiceCode'];
-    invoiceFound(invoiceValid(invoiceCode));
-  }
-}, ONE_SECOND_IN_MS);
-*/
 
 const initWidget = () => {
   console.log('Initializing UI...');

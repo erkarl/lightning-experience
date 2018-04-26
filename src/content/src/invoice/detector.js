@@ -1,5 +1,6 @@
-import { matchesInvoiceCode } from './invoice-matcher';
-import { cleanInvoice } from './invoice-cleaner';
+import { matchesInvoiceCode } from './matcher';
+import { cleanInvoice } from './cleaner';
+
 const TARGET_ELEMENT = document.body;
 const MUTATION_OBSERVER_CONFIG = {
   characterData: false,
