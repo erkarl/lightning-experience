@@ -9,6 +9,10 @@ const MUTATION_OBSERVER_CONFIG = {
   subtree: true,
 };
 
+const onlyUnique = (value, index, self) => {
+  return self.indexOf(value) === index;
+};
+
 export const searchForInvoices = ({invoiceFound}) => {
   const mutationObserver = new MutationObserver((mutationsList) => {
     const invoices = mutationsList
@@ -19,7 +23,8 @@ export const searchForInvoices = ({invoiceFound}) => {
           && matchesInvoiceCode(mutation.target.textContent);
       })
       .map((mutation) => mutation.target.textContent)
-      .map(cleanInvoice);
+      .map(cleanInvoice)
+      .filter(onlyUnique);
     invoices.forEach(invoiceFound);
   });
   mutationObserver.observe(TARGET_ELEMENT, MUTATION_OBSERVER_CONFIG);

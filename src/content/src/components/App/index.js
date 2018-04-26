@@ -14,6 +14,7 @@ class AppComponent extends Component {
     };
   }
 
+  // TODO: Amount is hardcoded.
   render() {
     return (
       <App>
@@ -29,7 +30,6 @@ class AppComponent extends Component {
             <p>Invoice</p>
             <p>Amount: 150</p>
             <button onClick={() => {
-              console.log('payInvoice', this.props.invoiceCode);
               chrome.runtime.sendMessage({type: "pay_invoice", options: {
                 invoiceCode: this.props.invoiceCode,
               }});

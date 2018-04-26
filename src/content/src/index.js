@@ -2,30 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import {searchForInvoices} from './invoice/detector';
+import {invoiceFound} from './invoice/found';
 
 console.log('Lightning Experience content script has been activated.');
-
-const invoiceFound = (invoiceCode) => {
-  console.log('invoiceFound', invoiceCode);
-  chrome.storage.sync.get('currentInvoice', (data) => {
-    const shouldOverrideOldInvoice = invoiceCode !== data.currentInvoice;
-    if (shouldOverrideOldInvoice) {
-      console.log('Found invoice. Decoding...', invoiceCode);
-
-      chrome.storage.sync.set({currentInvoice: invoiceCode}, () => {
-        console.log("Current invoice has been changed.");
-      });
-
-      chrome.runtime.sendMessage({type: "notification", options: {invoiceCode}});
-    }
-
-  });
-};
 
 searchForInvoices({invoiceFound});
 
 const initWidget = () => {
-  console.log('Initializing UI...');
   const rootLE = document.createElement('div');
   const guid = () => {
     const s4 = () => {
@@ -43,26 +26,17 @@ const initWidget = () => {
   const WIDGET_MARGIN = 80;
   rootLE.style.right = `${rect.left-WIDGET_MARGIN}px`;
   document.body.append(rootLE);
-  console.log('rootLE created & injected.', rootLE);
-  // TODO: Eliminate HACK
-  const invoiceCodeElement = document.getElementById('invoice-code');
-  const codeForApp = invoiceCodeElement.dataset['invoiceCode'];
-  ReactDOM.render(<App invoiceCode={codeForApp} />, rootLE);
-  console.log('UI started.');
+  // TODO: It currently naively assumes there is only 1 invoice on the page. For proof of concept this will do.
+  chrome.storage.sync.get('currentInvoice', (data) => {
+    ReactDOM.render(<App invoiceCode={data.currentInvoice} />, rootLE);
+    console.log('Widget injected.');
+  });
 };
 
 console.log('Listening extension...');
 chrome.runtime.onMessage.addListener(function(request, sender) {
-  console.log('incoming request', request);
   if (request.action === "confirm_decoded_invoice") {
-    console.log('decoded_invoice received, presenting to user');
+    // TODO: It currently does not decode the invoice from LND side and goes straight to pay.
     initWidget();
-    // const confirmResponse = confirm(`Pay ${request.decodedInvoice.amount}?`);
-    // console.log('confirmResponse', confirmResponse);
-    /*
-    if (confirmResponse == true) {
-      // TODO: Pay the invoice.
-    }
-    */
   }
 });
