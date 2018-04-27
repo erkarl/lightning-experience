@@ -15,6 +15,7 @@ const onMessage = async (request/*, sender */) => {
     const invoiceCode = request.options.invoiceCode;
     const decodedPayReq = await decodeInvoice(invoiceCode);
     const decodedInvoice = {
+      invoiceCode,
       description: decodedPayReq.description,
       amount: decodedPayReq.num_satoshis,
     };

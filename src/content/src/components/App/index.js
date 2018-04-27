@@ -14,8 +14,12 @@ class AppComponent extends Component {
     };
   }
 
-  // TODO: Amount is hardcoded.
   render() {
+    const {
+      invoiceCode,
+      description,
+      amount,
+    } = this.props.decodedInvoice;
     return (
       <App>
         {!this.state.openInvoice && !this.state.paid &&
@@ -28,10 +32,11 @@ class AppComponent extends Component {
         {this.state.openInvoice &&
           <OpenInvoice>
             <p>Invoice</p>
-            <p>Amount: 150</p>
+            <p>Amount: {amount}</p>
+            <p>Description: {description}</p>
             <button onClick={() => {
               chrome.runtime.sendMessage({type: "pay_invoice", options: {
-                invoiceCode: this.props.invoiceCode,
+                invoiceCode,
               }});
               this.setState({...this.state,
                 paid: true,

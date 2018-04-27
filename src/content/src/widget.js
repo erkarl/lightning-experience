@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 
-export const initWidget = () => {
+export const initWidget = (decodedInvoice) => {
   const rootLE = document.createElement('div');
   const guid = () => {
     const s4 = () => {
@@ -18,10 +18,7 @@ export const initWidget = () => {
   rootLE.style.right = `0px`;
   document.body.append(rootLE);
   // TODO: It currently naively assumes there is only 1 invoice on the page. For proof of concept this will do.
-  chrome.storage.sync.get('currentInvoice', (data) => {
-    console.log('rendering widget with invoice code', data.currentInvoice);
-    ReactDOM.render(<App invoiceCode={data.currentInvoice} />, rootLE);
-    console.log('Widget injected.');
-  });
+  ReactDOM.render(<App decodedInvoice={decodedInvoice} />, rootLE);
+  console.log('Widget injected for invoice', decodedInvoice.invoiceCode);
 };
 
