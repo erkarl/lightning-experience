@@ -1,15 +1,18 @@
-import {cleanInvoice} from '../src/invoice/cleaner';
+import {matchesInvoiceCode} from '../src/invoice/matcher';
+
+test('returns false for "Generating Invoice"', () => {
+  const matches = matchesInvoiceCode("Generating Invoice");
+  expect(matches).toEqual(false);
+});
 
 test('returns true for testnet invoice code', () => {
-  const dirtyInvoice = "possibleCode Here is your invoicelntb10n1pdwruxupp5wtvhnve4yewz5a62r4e08kllc8m06qrk8tzzfmwk94gxfrc0v8tsdqqcqzysekkrq9uk2xcrxt78aweu2dkvqzcrf9gxs60dfuyuw7vg7ncu04rqmnam9u5g3jvmxfa900d8x2rc04w2scd2rc0smdg96u63ftnfe8qpuvgezq"
-  const cleanedInvoice = cleanInvoice(dirtyInvoice);
-  const expectedInvoice = "lntb10n1pdwruxupp5wtvhnve4yewz5a62r4e08kllc8m06qrk8tzzfmwk94gxfrc0v8tsdqqcqzysekkrq9uk2xcrxt78aweu2dkvqzcrf9gxs60dfuyuw7vg7ncu04rqmnam9u5g3jvmxfa900d8x2rc04w2scd2rc0smdg96u63ftnfe8qpuvgezq"
-  expect(cleanedInvoice).toEqual(expectedInvoice);
+  const validInvoiceCode = "lntb10n1pdwrejspp578k5hz6fzdgg5n7uvyfst6amsa8p9x4pmyp8xq0krdnlyvkgsz4qdqqcqzys4z8sjnln7h83rxjjj6zsaqhq8kyn8f9mkxadtwnf5m9ven0uput5tynhjh7eu8ree58qxs440t370930sjfwe0wusgaz9tsnw6qfw7spgdrsf0"
+  const matches = matchesInvoiceCode(validInvoiceCode);
+  expect(matches).toEqual(true);
 });
 
 test('returns true for mainnet invoice code', () => {
-  const dirtyInvoice = "possibleCode Here is your invoicelnbc10n1pdwrunrpp5vss8vrvszz8fl29u4cw3pkphp8erc2ynpzhkd9z59d80ugwnrtlsdqqcqzys8s30thu4wmatppygvrs4je8gsjreh5r7fq44c40jpf3aragfflur7ypqavzcz7mfhcnev4x782kl9t5ksx3m8780ng0h9zmauhtssdsphtatffsomejunkintheend"
-  const cleanedInvoice = cleanInvoice(dirtyInvoice);
-  const expectedInvoice = "lnbc10n1pdwrunrpp5vss8vrvszz8fl29u4cw3pkphp8erc2ynpzhkd9z59d80ugwnrtlsdqqcqzys8s30thu4wmatppygvrs4je8gsjreh5r7fq44c40jpf3aragfflur7ypqavzcz7mfhcnev4x782kl9t5ksx3m8780ng0h9zmauhtssdsphtatff";
-  expect(cleanedInvoice).toEqual(expectedInvoice);
+  const validInvoiceCode = "lnbc10n1pdwrmnapp5qmg7yc7ms8jl56yee6a6kd469av0larw4s63kl4umq0pq908nqjqdqqcqzysx0qjs7lhvxe8nxtyhvj6ywf45jx47vx79y5cykvyv06rtv4hphqzzug75ajqj4kkghzruvamc3dr0fr8y3zxjm36en9knm6zyxs9xwsqk2slq2"
+  const matches = matchesInvoiceCode(validInvoiceCode);
+  expect(matches).toEqual(true);
 });
