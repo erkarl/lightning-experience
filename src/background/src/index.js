@@ -5,7 +5,6 @@ const TRANSACTIONS_ENDPOINT = '/v1/channels/transactions';
 
 const payInvoice = (invoiceCode) => {
   const body = {
-    "dest_string": "03b1e8cae2c4156cd94311be762dcaf62d5afd2e4b49162721c9e79bca33c76d0d",
     "payment_request": invoiceCode
   };
   return fetch(`${LND_RESTLISTEN}${TRANSACTIONS_ENDPOINT}`, {
