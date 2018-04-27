@@ -1,10 +1,10 @@
-import { matchesInvoiceCode } from './matcher';
 import { cleanInvoice } from './cleaner';
+import { filterMutation } from './filter';
 
 const TARGET_ELEMENT = document.body;
 const MUTATION_OBSERVER_CONFIG = {
-  characterData: false,
-  attributes: false,
+  characterData: true,
+  attributes: true,
   childList: true,
   subtree: true,
 };
@@ -15,14 +15,9 @@ const onlyUnique = (value, index, self) => {
 
 export const searchForInvoices = ({invoiceFound}) => {
   const mutationObserver = new MutationObserver((mutationsList) => {
-    const invoices = mutationsList
-      .filter((mutation) => {
-        return mutation
-          && mutation.target
-          && mutation.target.textContent
-          && matchesInvoiceCode(mutation.target.textContent);
-      })
-      .map((mutation) => mutation.target.textContent)
+    const filteredMutations = mutationsList
+      .map(filterMutation)
+    const invoices = [].concat.apply([], filteredMutations)
       .map(cleanInvoice)
       .filter(onlyUnique);
     invoices.forEach(invoiceFound);
