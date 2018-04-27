@@ -1,9 +1,7 @@
-export const cleanInvoice = (dirtyInvoice) => {
+export const cleanInvoice = (possibleInvoice) => {
   const lightningInvoiceRegex = /ln(?<chain>tb|tl|bc|ltc)(?<amt>[0-9]+)(?<multiplier>[munp])1(?<bechinvoice>[qpzry9x8gf2tvdw0s3jn54khce6mua7l]+)/g;
-  const cleanedInvoice = dirtyInvoice.match(lightningInvoiceRegex);
-  if (cleanInvoice.length !== 1) {
-    console.warn(`Unable to clean dirtyInvoice ${dirtyInvoice}`);
-    return '';
-  }
-  return cleanedInvoice.shift();
+  const cleanedInvoice = possibleInvoice.match(lightningInvoiceRegex);
+  if (cleanedInvoice && cleanedInvoice.length)
+    return cleanedInvoice.shift();
+  return '';
 };
