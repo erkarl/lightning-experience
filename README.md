@@ -10,4 +10,4 @@ TODO: Screenshots to setup.
 TODO: Quick guide to setup.
 
 ## Contributing
-TODO
+Pull requests welcome :=).

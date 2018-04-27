@@ -13,7 +13,7 @@ export const initWidget = (decodedInvoice) => {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   };
   rootLE.id = guid();
-  rootLE.style.position = 'absolute';
+  rootLE.style.position = 'fixed';
   rootLE.style.top = `0px`;
   rootLE.style.right = `0px`;
   document.body.append(rootLE);
