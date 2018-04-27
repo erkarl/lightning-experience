@@ -4,9 +4,19 @@ import App from './components/App';
 import {searchForInvoices} from './invoice/detector';
 import {invoiceFound} from './invoice/found';
 
-console.log('Lightning Experience content script has been activated.');
-
-searchForInvoices({invoiceFound});
+const INJECT_DELAY = 1;
+console.log('Wait', INJECT_DELAY);
+setTimeout(() => {
+  console.log('Init LE content script...');
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    if (request.action === "confirm_decoded_invoice") {
+      // TODO: It currently does not decode the invoice from LND side and goes straight to pay.
+      initWidget();
+    }
+  });
+  searchForInvoices({invoiceFound});
+  console.log('LE content script initialized.');
+}, INJECT_DELAY);
 
 const initWidget = () => {
   const rootLE = document.createElement('div');
@@ -19,24 +29,15 @@ const initWidget = () => {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   };
   rootLE.id = guid();
-  const invoiceCode = document.getElementById('invoice-code')
-  const rect = invoiceCode.getBoundingClientRect();
   rootLE.style.position = 'absolute';
-  rootLE.style.top = `${rect.top}px`;
-  const WIDGET_MARGIN = 80;
-  rootLE.style.right = `${rect.left-WIDGET_MARGIN}px`;
+  rootLE.style.top = `0px`;
+  rootLE.style.right = `0px`;
   document.body.append(rootLE);
   // TODO: It currently naively assumes there is only 1 invoice on the page. For proof of concept this will do.
   chrome.storage.sync.get('currentInvoice', (data) => {
+    console.log('rendering widget with invoice code', data.currentInvoice);
     ReactDOM.render(<App invoiceCode={data.currentInvoice} />, rootLE);
     console.log('Widget injected.');
   });
 };
 
-console.log('Listening extension...');
-chrome.runtime.onMessage.addListener(function(request, sender) {
-  if (request.action === "confirm_decoded_invoice") {
-    // TODO: It currently does not decode the invoice from LND side and goes straight to pay.
-    initWidget();
-  }
-});
