@@ -11,6 +11,3 @@ TODO: Quick guide to setup.
 
 ## Contributing
 TODO
-
-## LICENSE
-TODO
