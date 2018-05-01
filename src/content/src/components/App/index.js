@@ -9,7 +9,7 @@ class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openInvoice: false,
+      openInvoice: true,
       paid: false,
     };
   }
@@ -33,7 +33,9 @@ class AppComponent extends Component {
           <OpenInvoice>
             <p>Invoice</p>
             <p>Amount: {amount}</p>
-            <p>Description: {description}</p>
+            {description &&
+              <p>Description: {description}</p>
+            }
             <button onClick={() => {
               chrome.runtime.sendMessage({type: "pay_invoice", options: {
                 invoiceCode,
