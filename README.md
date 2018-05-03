@@ -6,7 +6,7 @@ TODO: Screenshots to setup.
 
 ## Requirements
 * [yarnpkg.com/en/](https://yarnpkg.com/en/)
-* [nodejs.org/en/](https://nodejs.org/en/)
+* [nodejs.org/en/](https://nodejs.org/en/) (>=6.13.1)
 
 ## Build from source
 Run the clean build script:
