@@ -17,9 +17,13 @@ This will create an unpacked extension into the `extension` directory.
 To load the extension go to:
 `chrome://extensions`
 
+Make sure developer mode is enabled.
+![DEVELOPER MODE](docs/images/developer-mode.png)
+
+Click `LOAD UNPACKED` and select your extension directory.
 ![LOAD UNPACKED](docs/images/load-unpacked.png)
 
-and click `LOAD UNPACKED` and select your extension directory.
+
 
 ## Contributing
 Pull requests welcome :=).
