@@ -7,7 +7,7 @@
     "scripts": ["dist/lightning-experience-background.bundle.js"],
     "persistent": false
   },
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs", "storage", "declarativeContent"],
   "page_action": {
     "default_popup": "dist/index.html",
     "default_icon": {

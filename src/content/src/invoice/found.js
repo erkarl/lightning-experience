@@ -9,6 +9,7 @@ export const invoiceFound = (invoiceCode) => {
         console.log("Current invoice has been changed.");
       });
 
+      // TODO: This should be within storage.set callback?
       chrome.runtime.sendMessage({type: "notification", options: {invoiceCode}});
     }
 

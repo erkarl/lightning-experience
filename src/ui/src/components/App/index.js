@@ -11,7 +11,8 @@ class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      restlisten: 'localhost:8080',
+      // TODO: Change this back to default 8080
+      restlisten: 'https://localhost:8081',
       hexMacaroon: '',
     };
   }
@@ -20,6 +21,10 @@ class AppComponent extends Component {
     const hexMacaroon = this.state.hexMacaroon;
     const restlisten = this.state.restlisten;
     console.log('saveSettings', restlisten, hexMacaroon);
+    chrome.storage.sync.set({restlisten, hexMacaroon}, () => {
+      console.log("Successfully updated settings.");
+      chrome.runtime.sendMessage({type: "settings_updated"});
+    });
   }
 
   updateRestlisten(e) {
