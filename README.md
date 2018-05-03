@@ -35,5 +35,9 @@ Click `LOAD UNPACKED` and select your extension directory.
 
 ![LOAD UNPACKED](docs/images/load-unpacked.png)
 
+## Troubleshooting
+If your lightning client is running outside of localhost you'll get a `SEC_ERROR_UNKNOWN_ISSUER` error.
+TODO: Self-signed LND certificates -> add exception or LetsEncrypt guide.
+
 ## Contributing
 Pull requests welcome :=).
