@@ -10,3 +10,6 @@ yarn build
 cd ../ui
 yarn install
 yarn build
+cd ../dashboard
+yarn install
+yarn build

@@ -1,5 +1,5 @@
-# Lightning Experience Popup UI
-This folder contains the UI for the extension menu. Right now it doesn't do anything other than open the dashboard.
+# Lightning Experience Dashboard
+This folder contains the UI for the extension.
 
 ## Requirements
 * [yarnpkg.com/en/](https://yarnpkg.com/en/)

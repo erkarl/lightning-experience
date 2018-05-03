@@ -60,6 +60,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      filename: 'index.html',
       template: paths.appHtml,
     })
   ]

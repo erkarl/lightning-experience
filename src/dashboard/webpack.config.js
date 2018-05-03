@@ -8,7 +8,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, '../../extension/dist'),
-    filename: 'lightning-experience-ui.bundle.js'
+    filename: 'lightning-experience-dashboard.bundle.js'
   },
   module: {
     strictExportPresence: true,
@@ -60,7 +60,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      filename: 'dashboard.html',
       template: paths.appHtml,
     })
   ]
