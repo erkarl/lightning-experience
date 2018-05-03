@@ -8,6 +8,10 @@ Open settings by clicking the Lightning Experience icon in the top right.
 
 ![OPEN SETTINGS](docs/images/open-settings.png)
 
+Enter your restlisten and macaroon.
+
+![ENTER SETTINGS](docs/images/enter-settings.png)
+
 ## Requirements
 * [yarnpkg.com/en/](https://yarnpkg.com/en/)
 * [nodejs.org/en/](https://nodejs.org/en/) (>=6.13.1)
