@@ -2,7 +2,7 @@
 This folder contains the UI for the extension.
 
 ## Build
-TODO
+`yarn build` creates production optimized build into `extension/dist/lightning-experience-dashboard.bundle.js`
 
 ## Start Development Server
 `yarn start`
