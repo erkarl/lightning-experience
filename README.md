@@ -35,7 +35,5 @@ Click `LOAD UNPACKED` and select your extension directory.
 
 ![LOAD UNPACKED](docs/images/load-unpacked.png)
 
-
-
 ## Contributing
 Pull requests welcome :=).
