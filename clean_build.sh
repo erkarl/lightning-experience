@@ -7,3 +7,6 @@ yarn build
 cd ../content
 yarn install
 yarn build
+cd ../ui
+yarn install
+yarn build
