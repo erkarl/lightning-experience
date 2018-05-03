@@ -1,6 +1,8 @@
 # Lightning Experience
 Lightning Experience is a Chrome extension that connects to your LND client through REST API. It will scan the web pages you visit for Lightning Network invoices and show a convenient widget to pay it. This is a proof of concept and should not be used in production unless you're willing to lose money.
 
+[![Lightning Experience Demo](http://img.youtube.com/vi/zoh43ejYxUo/0.jpg)](http://www.youtube.com/watch?v=zoh43ejYxUo "Lightning Experience Demo")
+
 ## Usage
 
 ### Configure
