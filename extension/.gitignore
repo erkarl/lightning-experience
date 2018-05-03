@@ -1,3 +1,5 @@
 .DS_Store
 images/lightning.psd
 images/lightning.svg
+dist/lightning-experience-background.bundle.js
+dist/lightning-experience-content.bundle.js
