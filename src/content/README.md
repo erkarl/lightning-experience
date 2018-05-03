@@ -8,7 +8,7 @@ Communication with the background script that handles all LND related communicat
 * [nodejs.org/en/](https://nodejs.org/en/)
 
 ## Build
-`yarn build` creates production optimized `content/dist/lightning-experience-content.bundle.js` which should be linked to `extension/dist/lightning-experience-content.bundle.js`.
+`yarn build` creates production optimized build into `extension/dist/lightning-experience-content.bundle.js`
 
 ## Start Development Server
 `yarn start`

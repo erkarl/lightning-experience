@@ -8,7 +8,7 @@ Communication with the content script that "scans" for invoices on the page happ
 * [nodejs.org/en/](https://nodejs.org/en/)
 
 ## Build
-`yarn build` creates production optimized `content/dist/lightning-experience-background.bundle.js` which should be linked to `extension/dist/lightning-experience-background.bundle.js`.
+`yarn build` creates production optimized build into `extension/dist/lightning-experience-background.bundle.js`
 
 ## Start Development Server
 `yarn start`
