@@ -17,6 +17,7 @@ import {
   ErrorText,
   InfoContainer,
   InfoText,
+  TextArea,
 } from './styles';
 
 class AppComponent extends Component {
@@ -73,6 +74,10 @@ class AppComponent extends Component {
     };
   }
 
+  updateMacaroonText(e) {
+    this.setState({...this.state, hexMacaroon: e.target.value});
+  }
+
   render() {
     return (
       <App>
@@ -115,6 +120,12 @@ class AppComponent extends Component {
                   type="file"
                   name="macaroon"
                   onChange={this.updateMacaroon.bind(this)}
+                />
+                <TextArea
+                  type="textarea"
+                  name="macaroon-text"
+                  value={this.state.hexMacaroon}
+                  onChange={this.updateMacaroonText.bind(this)}
                 />
                 <Button onClick={this.saveSettings.bind(this)}>
                   Save

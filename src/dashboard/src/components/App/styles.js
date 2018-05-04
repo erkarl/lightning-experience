@@ -44,6 +44,10 @@ export const Input = styled.input`
   width: 100%;
 `;
 
+export const TextArea = styled.textarea`
+  width: 100%;
+`;
+
 export const Button = styled.button`
   display: block;
   height: 2rem;
