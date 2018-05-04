@@ -64,12 +64,21 @@ export const LightningImg = styled.img`
 export const SettingsErrorContainer = styled(BaseContainer)`
 `;
 
+export const InfoContainer = styled(BaseContainer)`
+`;
+
 export const LoadingSpinner = styled.div.attrs({
   className: 'loading-spinner',
 })`
 `;
 
 export const ErrorText = styled.div`
+  text-align: left;
+  padding: 1rem;
+  font-size: 1rem;
+`;
+
+export const InfoText = styled.div`
   text-align: left;
   padding: 1rem;
   font-size: 1rem;

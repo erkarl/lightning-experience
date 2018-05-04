@@ -15,6 +15,8 @@ import {
   TestingSettings,
   LoadingSpinner,
   ErrorText,
+  InfoContainer,
+  InfoText,
 } from './styles';
 
 class AppComponent extends Component {
@@ -27,13 +29,17 @@ class AppComponent extends Component {
       isVerifying: false,
     };
     chrome.runtime.onMessage.addListener((request) => {
+      if (request.type === 'settings_verified') {
+        this.setState({...this.state,
+          info: request.info,
+          isVerifying: false,
+        });
+      }
       if (request.type === 'settings_error') {
-        setTimeout(() => {
-          this.setState({...this.state,
-            settingsError: request.error,
-            isVerifying: false,
-          });
-        }, 3000)
+        this.setState({...this.state,
+          settingsError: request.error,
+          isVerifying: false,
+        });
       }
     });
   }
@@ -74,6 +80,13 @@ class AppComponent extends Component {
         <MainTitle>
           Lightning Experience
         </MainTitle>
+        {this.state.info &&
+          <InfoContainer>
+            <InfoText>
+              Info is: TODO
+            </InfoText>
+          </InfoContainer>
+        }
         {this.state.settingsError &&
           <SettingsErrorContainer>
             <ErrorText>

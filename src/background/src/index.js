@@ -33,7 +33,7 @@ const onMessage = async (request/*, sender */) => {
     try {
       const info = await getInfo();
       console.log('info is', info);
-      chrome.runtime.sendMessage({type: 'settings_verified', options: {info}});
+      chrome.runtime.sendMessage({type: 'settings_verified', info});
     } catch(e) {
       console.log('sending message settings_error');
       chrome.runtime.sendMessage({type: 'settings_error', error: e});
