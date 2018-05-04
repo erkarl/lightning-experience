@@ -12,7 +12,7 @@ Open settings by clicking the Lightning Experience icon in the top right.
 
 Enter your restlisten and macaroon.
 
-![ENTER SETTINGS](docs/images/enter-settings.png)
+![ENTER SETTINGS](docs/images/settings.png)
 
 ## Requirements
 * [yarnpkg.com/en/](https://yarnpkg.com/en/)
