@@ -28,6 +28,12 @@ export const SettingsArea = styled.div`
   padding: 2rem;
 `;
 
+export const TestingSettings = styled.div`
+  text-align: center;
+  font-size: 2rem;
+  margin: 1rem;
+`;
+
 export const Label = styled.label`
   display: block;
   width: 100%;
@@ -53,4 +59,9 @@ export const LightningImg = styled.img`
   position: absolute;
   right: -10rem;
   transform: rotateY(180deg);
+`;
+
+export const LoadingSpinner = styled.div.attrs({
+  className: 'loading-spinner',
+})`
 `;

@@ -11,6 +11,8 @@ import {
   Header,
   LightningImg,
   MainTitle,
+  TestingSettings,
+  LoadingSpinner,
 } from './styles';
 
 class AppComponent extends Component {
@@ -20,6 +22,7 @@ class AppComponent extends Component {
     this.state = {
       restlisten: 'https://localhost:8080',
       hexMacaroon: '',
+      isVerifying: false,
     };
   }
 
@@ -30,7 +33,8 @@ class AppComponent extends Component {
     chrome.storage.sync.set({restlisten, hexMacaroon}, () => {
       console.log("Successfully updated settings.");
       chrome.runtime.sendMessage({type: "settings_updated"});
-      alert('Settings have been saved.');
+      // alert('Settings have been saved.');
+      this.setState({...this.state, isVerifying: true});
     });
   }
 
@@ -61,31 +65,41 @@ class AppComponent extends Component {
           Lightning Experience
         </MainTitle>
         <MainContainer>
-          <SettingsArea>
-            <Header>Settings</Header>
-            <hr />
-            <div>
-              <Label htmlFor="restlisten">
-                LND restlisten:
-              </Label>
-              <Input
-                type="text"
-                name="restlisten"
-                placeholder="localhost:8080"
-                onChange={this.updateRestlisten.bind(this)}
-                value={this.state.restlisten}
-              />
-              <Label htmlFor="macaroon">LND macaroon: </Label>
-              <Input
-                type="file"
-                name="macaroon"
-                onChange={this.updateMacaroon.bind(this)}
-              />
-              <Button onClick={this.saveSettings.bind(this)}>
-                Save
-              </Button>
-            </div>
-          </SettingsArea>
+          {!this.state.isVerifying &&
+            <SettingsArea>
+              <Header>Settings</Header>
+              <hr />
+              <div>
+                <Label htmlFor="restlisten">
+                  LND restlisten:
+                </Label>
+                <Input
+                  type="text"
+                  name="restlisten"
+                  placeholder="localhost:8080"
+                  onChange={this.updateRestlisten.bind(this)}
+                  value={this.state.restlisten}
+                />
+                <Label htmlFor="macaroon">LND macaroon: </Label>
+                <Input
+                  type="file"
+                  name="macaroon"
+                  onChange={this.updateMacaroon.bind(this)}
+                />
+                <Button onClick={this.saveSettings.bind(this)}>
+                  Save
+                </Button>
+              </div>
+            </SettingsArea>
+          }
+          {this.state.isVerifying &&
+            <TestingSettings>
+              Testing connectivity to LND. Please wait.
+            </TestingSettings>
+          }
+          {this.state.isVerifying &&
+            <LoadingSpinner />
+          }
         </MainContainer>
       </App>
     );
