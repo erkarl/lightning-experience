@@ -43,4 +43,5 @@ chrome.runtime.onInstalled.addListener(() => {
       actions: [new chrome.declarativeContent.ShowPageAction()]
     }]);
   });
+  chrome.tabs.create({active: true, url: 'dist/dashboard.html'});
 });
