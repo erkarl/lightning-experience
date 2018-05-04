@@ -35,9 +35,8 @@ const onMessage = async (request/*, sender */) => {
       console.log('info is', info);
       chrome.runtime.sendMessage({type: 'settings_verified', options: {info}});
     } catch(e) {
-      // TODO: Include the actual error.
       console.log('sending message settings_error');
-      chrome.runtime.sendMessage({type: 'settings_error'});
+      chrome.runtime.sendMessage({type: 'settings_error', error: e});
     }
   }
 };

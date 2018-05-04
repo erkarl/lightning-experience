@@ -83,6 +83,10 @@ export const getInfo = async () => {
   const hexMacaroon = await getHexMacaroon();
   const response = await getInfoRequest({restlisten, hexMacaroon});
   if (!response.ok) {
+    const failedResponseBody = await response.json();
+    if (failedResponseBody.error) {
+      return Promise.reject(failedResponseBody.error);
+    }
     return Promise.reject('failed_to_get_info');
   }
   return Promise.resolve(response.json());

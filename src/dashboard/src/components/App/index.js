@@ -28,11 +28,9 @@ class AppComponent extends Component {
     };
     chrome.runtime.onMessage.addListener((request) => {
       if (request.type === 'settings_error') {
-        console.log('setting error');
-        // Temp. timeout for simulating latency
         setTimeout(() => {
           this.setState({...this.state,
-            settingsError: 'TODO: Add actual error here.',
+            settingsError: request.error,
             isVerifying: false,
           });
         }, 3000)
@@ -45,7 +43,7 @@ class AppComponent extends Component {
     const restlisten = this.state.restlisten;
     chrome.storage.sync.set({restlisten, hexMacaroon}, () => {
       chrome.runtime.sendMessage({type: "settings_updated"});
-      this.setState({...this.state, isVerifying: true});
+      this.setState({...this.state, isVerifying: true, settingsError: ''});
 
     });
   }
