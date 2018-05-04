@@ -1,7 +1,31 @@
 import styled from 'styled-components';
 
+export const MainContainer = styled.div`
+  width: 66%;
+  margin: 0 auto;
+  border: 1px solid #fff;
+  margin-top: 3rem;
+  background: #222222;
+`;
+
 export const App = styled.div`
-  min-width: 30rem;
+`;
+
+export const MainTitle = styled.h1`
+  margin: 0;
+  font-size: 4rem;
+  text-align: center;
+  color: #222222;
+  margin-top: 2rem;
+`;
+
+export const Header = styled.h2`
+  margin: 0;
+  font-size: 2rem;
+`;
+
+export const SettingsArea = styled.div`
+  padding: 2rem;
 `;
 
 export const Label = styled.label`
@@ -15,5 +39,18 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
+  display: block;
+  height: 2rem;
+  font-size: 1.5rem;
   margin-top: 1rem;
+  background: #ffa200;
+  color: black;
+  border: 1px solid white;
+`;
+
+export const LightningImg = styled.img`
+  z-index: -1;
+  position: absolute;
+  right: -10rem;
+  transform: rotateY(180deg);
 `;

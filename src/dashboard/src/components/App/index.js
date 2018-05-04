@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import LightningSVG from './lightning.svg';
+
 import {
   App,
+  MainContainer,
   Label,
   Input,
   Button,
+  SettingsArea,
+  Header,
+  LightningImg,
+  MainTitle,
 } from './styles';
 
 class AppComponent extends Component {
@@ -49,29 +56,37 @@ class AppComponent extends Component {
   render() {
     return (
       <App>
-        <h1>Settings</h1>
-        <hr />
-        <div>
-          <Label htmlFor="restlisten">
-            LND restlisten:
-          </Label>
-          <Input
-            type="text"
-            name="restlisten"
-            placeholder="localhost:8080"
-            onChange={this.updateRestlisten.bind(this)}
-            value={this.state.restlisten}
-          />
-          <Label htmlFor="macaroon">LND macaroon: </Label>
-          <Input
-            type="file"
-            name="macaroon"
-            onChange={this.updateMacaroon.bind(this)}
-          />
-          <Button onClick={this.saveSettings.bind(this)}>
-            Save
-          </Button>
-        </div>
+        <LightningImg src={LightningSVG} alt="Lightning" />
+        <MainTitle>
+          Lightning Experience
+        </MainTitle>
+        <MainContainer>
+          <SettingsArea>
+            <Header>Settings</Header>
+            <hr />
+            <div>
+              <Label htmlFor="restlisten">
+                LND restlisten:
+              </Label>
+              <Input
+                type="text"
+                name="restlisten"
+                placeholder="localhost:8080"
+                onChange={this.updateRestlisten.bind(this)}
+                value={this.state.restlisten}
+              />
+              <Label htmlFor="macaroon">LND macaroon: </Label>
+              <Input
+                type="file"
+                name="macaroon"
+                onChange={this.updateMacaroon.bind(this)}
+              />
+              <Button onClick={this.saveSettings.bind(this)}>
+                Save
+              </Button>
+            </div>
+          </SettingsArea>
+        </MainContainer>
       </App>
     );
   }
