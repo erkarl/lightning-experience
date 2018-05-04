@@ -1,6 +1,9 @@
 body {
   background: #e7e7e7;
-  color: rgb(243, 243, 243);
+  color: rgba(17, 17, 17, 1);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
 .loading-spinner {

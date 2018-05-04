@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LightningSVG from './lightning.svg';
+import ArrowUpIcon from './arrow-circle-up.svg';
 
 import {
   App,
@@ -7,7 +8,6 @@ import {
   SettingsErrorContainer,
   Label,
   Input,
-  Button,
   SettingsArea,
   Header,
   LightningImg,
@@ -18,6 +18,16 @@ import {
   InfoContainer,
   InfoText,
   TextArea,
+  FileInputWrapper,
+  FileInput,
+  FileInputButton,
+  MacaroonRow,
+  ActionButtons,
+  Separator,
+  SaveButton,
+  UploadMacaroonIcon,
+  TestingSettingsText,
+  SmallHeading,
 } from './styles';
 
 class AppComponent extends Component {
@@ -79,6 +89,7 @@ class AppComponent extends Component {
   }
 
   render() {
+    const info = this.state.info;
     return (
       <App>
         <LightningImg src={LightningSVG} alt="Lightning" />
@@ -88,26 +99,41 @@ class AppComponent extends Component {
         {this.state.info &&
           <InfoContainer>
             <InfoText>
-              Info is: TODO
+              Alias: {info.alias}
+              Best header timestamp: {info.best_header_timestamp}
+              Block hash: {info.block_hash}
+              Block height: {info.block_height}
+              Chains:
+              {info.chains.map((chain) => {
+                return <div key={chain}>{chain}</div>
+              })}
+              Public key: {info.identity_pubkey}
+              Active channels: {info.num_active_channels}
+              Synced to chain: {info.synced_to_chain}
+              Peers: {info.num_peers}
+              URIs:
+              {info.uris.map((uri) => {
+                return <div key={uri}>{uri}</div>
+              })}
             </InfoText>
           </InfoContainer>
-        }
-        {this.state.settingsError &&
-          <SettingsErrorContainer>
-            <ErrorText>
-              Failed to connect to LND: {this.state.settingsError}
-            </ErrorText>
-          </SettingsErrorContainer>
         }
         <BaseContainer>
           {!this.state.isVerifying &&
             <SettingsArea>
               <Header>Settings</Header>
-              <hr />
+              <Separator />
+              {this.state.settingsError &&
+                <SettingsErrorContainer>
+                  <SmallHeading>Error</SmallHeading>
+                  <ErrorText>
+                    Failed to connect to LND: {this.state.settingsError}
+                  </ErrorText>
+                  <Separator />
+                </SettingsErrorContainer>
+              }
               <div>
-                <Label htmlFor="restlisten">
-                  LND restlisten:
-                </Label>
+                <Label htmlFor="restlisten">LND restlisten</Label>
                 <Input
                   type="text"
                   name="restlisten"
@@ -115,31 +141,42 @@ class AppComponent extends Component {
                   onChange={this.updateRestlisten.bind(this)}
                   value={this.state.restlisten}
                 />
-                <Label htmlFor="macaroon">LND macaroon: </Label>
-                <Input
-                  type="file"
-                  name="macaroon"
-                  onChange={this.updateMacaroon.bind(this)}
-                />
-                <TextArea
-                  type="textarea"
-                  name="macaroon-text"
-                  value={this.state.hexMacaroon}
-                  onChange={this.updateMacaroonText.bind(this)}
-                />
-                <Button onClick={this.saveSettings.bind(this)}>
-                  Save
-                </Button>
+                <Label htmlFor="macaroon">LND macaroon</Label>
+                <MacaroonRow>
+                  <FileInputWrapper>
+                    <FileInputButton>
+                      <UploadMacaroonIcon src={ArrowUpIcon} alt="Upload macaroon" />
+                      Upload Macaroon
+                    </FileInputButton>
+                    <FileInput
+                      type="file"
+                      name="macaroon"
+                      onChange={this.updateMacaroon.bind(this)}
+                    />
+                  </FileInputWrapper>
+                  <TextArea
+                    placeholder="Paste in your hex encoded macaroon or upload from file"
+                    type="textarea"
+                    name="macaroon-text"
+                    value={this.state.hexMacaroon}
+                    onChange={this.updateMacaroonText.bind(this)}
+                  />
+                </MacaroonRow>
+                <ActionButtons>
+                  <SaveButton onClick={this.saveSettings.bind(this)}>
+                    Save
+                  </SaveButton>
+                </ActionButtons>
               </div>
             </SettingsArea>
           }
           {this.state.isVerifying &&
             <TestingSettings>
-              Testing connectivity to LND. Please wait.
+              <TestingSettingsText>
+                Testing connectivity to LND. Please wait.
+              </TestingSettingsText>
+              <LoadingSpinner />
             </TestingSettings>
-          }
-          {this.state.isVerifying &&
-            <LoadingSpinner />
           }
         </BaseContainer>
       </App>
