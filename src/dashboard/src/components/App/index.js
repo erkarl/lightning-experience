@@ -3,7 +3,8 @@ import LightningSVG from './lightning.svg';
 
 import {
   App,
-  MainContainer,
+  BaseContainer,
+  SettingsErrorContainer,
   Label,
   Input,
   Button,
@@ -13,6 +14,7 @@ import {
   MainTitle,
   TestingSettings,
   LoadingSpinner,
+  ErrorText,
 } from './styles';
 
 class AppComponent extends Component {
@@ -24,17 +26,27 @@ class AppComponent extends Component {
       hexMacaroon: '',
       isVerifying: false,
     };
+    chrome.runtime.onMessage.addListener((request) => {
+      if (request.type === 'settings_error') {
+        console.log('setting error');
+        // Temp. timeout for simulating latency
+        setTimeout(() => {
+          this.setState({...this.state,
+            settingsError: 'TODO: Add actual error here.',
+            isVerifying: false,
+          });
+        }, 3000)
+      }
+    });
   }
 
   saveSettings() {
     const hexMacaroon = this.state.hexMacaroon;
     const restlisten = this.state.restlisten;
-    console.log('saveSettings', restlisten, hexMacaroon);
     chrome.storage.sync.set({restlisten, hexMacaroon}, () => {
-      console.log("Successfully updated settings.");
       chrome.runtime.sendMessage({type: "settings_updated"});
-      // alert('Settings have been saved.');
       this.setState({...this.state, isVerifying: true});
+
     });
   }
 
@@ -64,7 +76,14 @@ class AppComponent extends Component {
         <MainTitle>
           Lightning Experience
         </MainTitle>
-        <MainContainer>
+        {this.state.settingsError &&
+          <SettingsErrorContainer>
+            <ErrorText>
+              Failed to connect to LND: {this.state.settingsError}
+            </ErrorText>
+          </SettingsErrorContainer>
+        }
+        <BaseContainer>
           {!this.state.isVerifying &&
             <SettingsArea>
               <Header>Settings</Header>
@@ -100,7 +119,7 @@ class AppComponent extends Component {
           {this.state.isVerifying &&
             <LoadingSpinner />
           }
-        </MainContainer>
+        </BaseContainer>
       </App>
     );
   }

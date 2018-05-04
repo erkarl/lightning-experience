@@ -1,4 +1,4 @@
-import { payInvoice, decodeInvoice } from './lnd-rest/requests';
+import { payInvoice, decodeInvoice, getInfo } from './lnd-rest/requests';
 
 console.log('Starting background bundle');
 
@@ -30,7 +30,15 @@ const onMessage = async (request/*, sender */) => {
     });
   }
   if (request.type === 'settings_updated') {
-    // TODO: Run connectivity checks.
+    try {
+      const info = await getInfo();
+      console.log('info is', info);
+      chrome.runtime.sendMessage({type: 'settings_verified', options: {info}});
+    } catch(e) {
+      // TODO: Include the actual error.
+      console.log('sending message settings_error');
+      chrome.runtime.sendMessage({type: 'settings_error'});
+    }
   }
 };
 

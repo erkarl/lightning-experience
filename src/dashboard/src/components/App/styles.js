@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MainContainer = styled.div`
+export const BaseContainer = styled.div`
   width: 66%;
   margin: 0 auto;
   border: 1px solid #fff;
@@ -61,7 +61,16 @@ export const LightningImg = styled.img`
   transform: rotateY(180deg);
 `;
 
+export const SettingsErrorContainer = styled(BaseContainer)`
+`;
+
 export const LoadingSpinner = styled.div.attrs({
   className: 'loading-spinner',
 })`
+`;
+
+export const ErrorText = styled.div`
+  text-align: left;
+  padding: 1rem;
+  font-size: 1rem;
 `;
