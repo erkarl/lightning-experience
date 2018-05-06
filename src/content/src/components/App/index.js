@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import {
-  App,
-  OpenInvoice,
-} from './styles';
 
 class AppComponent extends Component {
 
@@ -21,7 +17,7 @@ class AppComponent extends Component {
       amount,
     } = this.props.decodedInvoice;
     return (
-      <App>
+      <div className="le-widget-container">
         {!this.state.openInvoice && !this.state.paid &&
           <button onClick={() => {
             this.setState({...this.state, openInvoice: true})
@@ -30,7 +26,7 @@ class AppComponent extends Component {
           </button>
         }
         {this.state.openInvoice &&
-          <OpenInvoice>
+          <div className="le-invoice-container">
             <p>Invoice</p>
             <p>Amount: {amount}</p>
             {description &&
@@ -47,9 +43,9 @@ class AppComponent extends Component {
             }}>
               Pay Invoice
             </button>
-          </OpenInvoice>
+          </div>
         }
-      </App>
+      </div>
     );
   }
 }

@@ -1,6 +1,7 @@
 import {searchForInvoices} from './invoice/detector';
 import {invoiceFound} from './invoice/found';
 import {initWidget} from './widget';
+import './global.css';
 
 const initializeBackgroundScript = () => {
   console.log('Init LE content script...');
