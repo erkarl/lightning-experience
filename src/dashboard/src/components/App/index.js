@@ -104,7 +104,7 @@ class AppComponent extends Component {
               Block hash: {info.block_hash}
               Block height: {info.block_height}
               Chains:
-              {info.chains.map((chain) => {
+              {info.chains && info.chains.map((chain) => {
                 return <div key={chain}>{chain}</div>
               })}
               Public key: {info.identity_pubkey}
@@ -112,7 +112,7 @@ class AppComponent extends Component {
               Synced to chain: {info.synced_to_chain}
               Peers: {info.num_peers}
               URIs:
-              {info.uris.map((uri) => {
+              {info.uris && info.uris.map((uri) => {
                 return <div key={uri}>{uri}</div>
               })}
             </InfoText>
