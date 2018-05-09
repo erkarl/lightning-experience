@@ -28,6 +28,7 @@ import {
   UploadMacaroonIcon,
   TestingSettingsText,
   SmallHeading,
+  SecondaryTitle,
 } from './styles';
 
 class AppComponent extends Component {
@@ -96,6 +97,9 @@ class AppComponent extends Component {
         <MainTitle>
           Lightning Experience
         </MainTitle>
+        <SecondaryTitle>
+          Developer Preview
+        </SecondaryTitle>
         {this.state.info &&
           <InfoContainer>
             <InfoText>
