@@ -3,6 +3,8 @@ import { payInvoice, decodeInvoice, getInfo } from './lnd-rest/requests';
 console.log('Starting background bundle');
 
 console.log('Adding external message listener...');
+const EXPERIMENTAL_AUTO_PAY_INVOICE = true;
+const MAX_AUTO_PAY_AMOUNT = 1;
 
 const onMessage = async (request/*, sender */) => {
   console.log('onMessage', request);
@@ -20,14 +22,19 @@ const onMessage = async (request/*, sender */) => {
       description: decodedPayReq.description,
       amount: decodedPayReq.num_satoshis,
     };
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      if (tabs.length > 0) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-          action: 'confirm_decoded_invoice',
-          decodedInvoice,
-        }, () => {});
-      }
-    });
+    // Instead of asking for user confirmation we'll go straight ahead and just pay it.
+    if (decodedPayReq.num_satoshis > MAX_AUTO_PAY_AMOUNT) {
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        if (tabs.length > 0) {
+          chrome.tabs.sendMessage(tabs[0].id, {
+            action: 'confirm_decoded_invoice',
+            decodedInvoice,
+          }, () => {});
+        }
+      });
+    } else {
+      await payInvoice(invoiceCode);
+    }
   }
   if (request.type === 'settings_updated') {
     try {
