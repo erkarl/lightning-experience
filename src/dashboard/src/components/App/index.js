@@ -29,6 +29,10 @@ import {
   TestingSettingsText,
   SmallHeading,
   SecondaryTitle,
+  AutoAcceptSettings,
+  AutoPayDescription,
+  AutoPayInput,
+  AutoPayLabel,
 } from './styles';
 
 class AppComponent extends Component {
@@ -166,6 +170,24 @@ class AppComponent extends Component {
                     onChange={this.updateMacaroonText.bind(this)}
                   />
                 </MacaroonRow>
+                <AutoAcceptSettings>
+                  <AutoPayDescription>Automatically Pay Invoices</AutoPayDescription>
+                  <AutoPayLabel htmlFor="autopay-yes">Yes</AutoPayLabel>
+                  <AutoPayInput
+                    type="radio"
+                    name="autopay"
+                    id="autopay-yes"
+                    value={true}
+                  />
+                  <AutoPayLabel htmlFor="autopay-no">No</AutoPayLabel>
+                  <AutoPayInput
+                    type="radio"
+                    name="autopay"
+                    id="autopay-no"
+                    value={false}
+                    defaultChecked
+                  />
+                </AutoAcceptSettings>
                 <ActionButtons>
                   <SaveButton onClick={this.saveSettings.bind(this)}>
                     Save

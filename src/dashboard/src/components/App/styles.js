@@ -10,12 +10,34 @@ export const BaseContainer = styled.div`
 export const App = styled.div`
 `;
 
+export const AutoAcceptSettings = styled.div`
+`;
+
 export const MainTitle = styled.h1`
   margin: 0;
   font-size: 4rem;
   text-align: center;
   color: #222222;
   margin-top: 2rem;
+`;
+
+export const AutoPayDescription = styled.h4`
+`;
+
+export const AutoPayInput = styled.input`
+  border: none;
+  font-weight: 200;
+  outline-color: white;
+  box-sizing: border-box;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+  background: #e7e7e7;
+  color: rgba(17,17,17,1);
+`;
+
+export const AutoPayLabel = styled.label`
+  font-size: 1.25rem;
+  margin: 1rem 0 1rem 0;
 `;
 
 export const SecondaryTitle = styled.h2`

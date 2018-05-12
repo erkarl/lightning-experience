@@ -4,7 +4,7 @@ console.log('Starting background bundle');
 
 console.log('Adding external message listener...');
 const EXPERIMENTAL_AUTO_PAY_INVOICE = true;
-const MAX_AUTO_PAY_AMOUNT = 1;
+const MAX_AUTO_PAY_AMOUNT = 10;
 
 const onMessage = async (request/*, sender */) => {
   console.log('onMessage', request);
@@ -23,7 +23,7 @@ const onMessage = async (request/*, sender */) => {
       amount: decodedPayReq.num_satoshis,
     };
     // Instead of asking for user confirmation we'll go straight ahead and just pay it.
-    if (decodedPayReq.num_satoshis > MAX_AUTO_PAY_AMOUNT) {
+    if (EXPERIMENTAL_AUTO_PAY_INVOICE && decodedPayReq.num_satoshis > MAX_AUTO_PAY_AMOUNT) {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         if (tabs.length > 0) {
           chrome.tabs.sendMessage(tabs[0].id, {
@@ -34,6 +34,7 @@ const onMessage = async (request/*, sender */) => {
       });
     } else {
       await payInvoice(invoiceCode);
+      console.log('after decode payInvoice', invoiceCode);
     }
   }
   if (request.type === 'settings_updated') {
