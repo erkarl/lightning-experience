@@ -21,10 +21,11 @@ export const searchForInvoices = ({invoiceFound}) => {
   const mutationObserver = new MutationObserver((mutationsList) => {
     const filteredMutations = mutationsList
       .map(filterMutation)
-    const invoices = [].concat.apply([], filteredMutations)
+    const unflatInvoices = [].concat.apply([], filteredMutations)
       .map(cleanInvoice)
       .filter(onlyUnique)
       .filter(notEmptyNorNull);
+    const invoices = [].concat.apply([], unflatInvoices);
     invoices.forEach(invoiceFound);
   });
   mutationObserver.observe(TARGET_ELEMENT, MUTATION_OBSERVER_CONFIG);

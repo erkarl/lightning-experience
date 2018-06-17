@@ -1,17 +1,32 @@
-export const invoiceFound = (invoiceCode) => {
-  console.log('invoiceFound', invoiceCode);
-  chrome.storage.sync.get('currentInvoice', (data) => {
-    const shouldOverrideOldInvoice = invoiceCode !== data.currentInvoice;
-    if (shouldOverrideOldInvoice) {
-      console.log('Found invoice. Decoding...', invoiceCode);
+let currentInvoices = [];
 
-      chrome.storage.sync.set({currentInvoice: invoiceCode}, () => {
-        console.log("Current invoice has been changed.");
+export const invoiceFound = (invoiceCode) => {
+  const shouldSendToBackgroundScript = !currentInvoices
+    .includes(invoiceCode);
+  if (shouldSendToBackgroundScript) {
+    currentInvoices = currentInvoices
+      .slice(0, 30)
+      .concat([invoiceCode]);
+    console.log('invoiceFound', invoiceCode);
+    chrome.runtime.sendMessage({type: "notification", options: {invoiceCode}});
+  } else {
+    console.log('INVOICE IGNORED!');
+  }
+  /*
+  chrome.storage.sync.get('currentInvoices', (data) => {
+    const currentInvoices = data.currentInvoices || [];
+    const shouldSendToBackgroundScript = !currentInvoices
+      .includes(invoiceCode);
+    if (shouldSendToBackgroundScript) {
+      console.log('Decoding invoice...', invoiceCode);
+      chrome.storage.sync.set({
+        currentInvoices: currentInvoices.concat([invoiceCode])
+      }, () => {
+        console.log('Sent to background...');
+        chrome.runtime.sendMessage({type: "notification", options: {invoiceCode}});
       });
 
-      // TODO: This should be within storage.set callback?
-      chrome.runtime.sendMessage({type: "notification", options: {invoiceCode}});
     }
-
   });
+  */
 };
